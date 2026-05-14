@@ -52,6 +52,9 @@ impl UpdateVersionOpt {
     }
 }
 
+/// The embedded JSON Schema for nextest's repository configuration format.
+static REPO_CONFIG_SCHEMA: &str = include_str!("../../../../jsonschemas/repo-config.json");
+
 /// Subcommands for self.
 #[derive(Debug, Subcommand)]
 pub(crate) enum SelfCommand {
@@ -61,6 +64,11 @@ pub(crate) enum SelfCommand {
         /// The entity running the setup command.
         #[arg(long, value_enum, default_value_t = SetupSource::User)]
         source: SetupSource,
+    },
+    /// Print an embedded JSON Schema.
+    Schema {
+        #[command(subcommand)]
+        kind: SchemaCommand,
     },
     #[cfg_attr(
         not(feature = "self-update"),
@@ -109,11 +117,30 @@ pub(crate) enum SetupSource {
     PackageManager,
 }
 
+/// Selects which embedded JSON Schema to print.
+#[derive(Debug, Subcommand)]
+pub(crate) enum SchemaCommand {
+    /// Print the JSON Schema for `.config/nextest.toml`.
+    RepoConfig,
+}
+
+impl SchemaCommand {
+    fn exec(self) -> i32 {
+        match self {
+            Self::RepoConfig => {
+                print!("{REPO_CONFIG_SCHEMA}");
+                0
+            }
+        }
+    }
+}
+
 impl SelfCommand {
     #[cfg_attr(not(feature = "self-update"), expect(unused_variables))]
     pub(crate) fn exec(self, output: OutputContext) -> Result<i32> {
         match self {
             Self::Setup { source: _source } => Ok(0),
+            Self::Schema { kind } => Ok(kind.exec()),
             Self::Update {
                 version,
                 check,
