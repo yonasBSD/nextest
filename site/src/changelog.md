@@ -10,6 +10,10 @@ toc_depth: 1
 This page documents new features and bugfixes for cargo-nextest. Please see the [stability
 policy](https://nexte.st/docs/stability/) for how versioning works with cargo-nextest.
 
+## [0.9.135] - 2026-05-14
+
+Fixed an issue with a from-crates.io build.
+
 ## [0.9.134] - 2026-05-14
 
 ### Added
@@ -2153,6 +2157,7 @@ Supported in this initial release:
 - [Test retries](https://nexte.st/book/retries.md) and flaky test detection
 - [JUnit support](https://nexte.st/book/junit.md) for integration with other test tooling
 
+[0.9.135]: https://github.com/nextest-rs/nextest/releases/tag/cargo-nextest-0.9.135
 [0.9.134]: https://github.com/nextest-rs/nextest/releases/tag/cargo-nextest-0.9.134
 [0.9.133]: https://github.com/nextest-rs/nextest/releases/tag/cargo-nextest-0.9.133
 [0.9.132]: https://github.com/nextest-rs/nextest/releases/tag/cargo-nextest-0.9.132
