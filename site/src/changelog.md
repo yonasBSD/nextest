@@ -10,6 +10,35 @@ toc_depth: 1
 This page documents new features and bugfixes for cargo-nextest. Please see the [stability
 policy](https://nexte.st/docs/stability/) for how versioning works with cargo-nextest.
 
+## [0.9.134] - 2026-05-14
+
+### Added
+
+- Nextest now provides a [JSON Schema](https://nexte.st/docs/configuration/reference#repository-configuration-schema) for repository configuration at `.config/nextest.toml`, enabling validation and IDE autocompletion via the [Tombi](https://tombi-toml.github.io/tombi) language server.
+
+  Thanks [ya7010](https://github.com/ya7010) for your first contribution, and for maintaining Tombi!
+
+  (Note that the Taplo language server is not supported due to a [crash bug](https://github.com/tamasfe/taplo/pull/779). The schema has been tested to work with Tombi.)
+
+- For target triples that nextest doesn't have built-in information about, nextest now invokes `rustc --print=cfg --target=<triple>` to resolve platform information before falling back to heuristic detection. This is particularly useful for custom builds of the Rust toolchain. ([#3331])
+
+  Thanks [mhatzl](https://github.com/mhatzl) for your first contribution!
+
+### Changed
+
+- [User config](https://nexte.st/docs/user-config/) platform overrides are now always evaluated against the build target: the platform nextest was compiled for. Previously, the build target was used in some cases and the host platform in others. ([#3285])
+
+  In most cases the build target matches the host platform, but they can differ when, for example, running an `x86_64-unknown-linux-musl` nextest binary on a glibc (`-gnu`) host. This change does not affect [per-test overrides](https://nexte.st/docs/configuration/per-test-overrides/), which continue to be matched against the host or target platform of the tests being run.
+
+### Fixed
+
+- `cargo nextest store export` and `cargo nextest store export-chrome-trace` now verify the [store format version](https://nexte.st/docs/features/record-replay-rerun/) before exporting, matching the behavior of `cargo nextest replay` and the rerun commands. ([#3287])
+
+[#3285]: https://github.com/nextest-rs/nextest/pull/3285
+[#3287]: https://github.com/nextest-rs/nextest/pull/3287
+[#3314]: https://github.com/nextest-rs/nextest/pull/3314
+[#3331]: https://github.com/nextest-rs/nextest/pull/3331
+
 ## [0.9.133] - 2026-04-14
 
 ### Added
@@ -2124,6 +2153,7 @@ Supported in this initial release:
 - [Test retries](https://nexte.st/book/retries.md) and flaky test detection
 - [JUnit support](https://nexte.st/book/junit.md) for integration with other test tooling
 
+[0.9.134]: https://github.com/nextest-rs/nextest/releases/tag/cargo-nextest-0.9.134
 [0.9.133]: https://github.com/nextest-rs/nextest/releases/tag/cargo-nextest-0.9.133
 [0.9.132]: https://github.com/nextest-rs/nextest/releases/tag/cargo-nextest-0.9.132
 [0.9.131]: https://github.com/nextest-rs/nextest/releases/tag/cargo-nextest-0.9.131

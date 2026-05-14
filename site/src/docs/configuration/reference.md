@@ -22,6 +22,24 @@ Tool-specific configs allow tools to provide their own nextest configuration tha
 
 For more information about configuration hierarchy, see [_Hierarchical configuration_](index.md#hierarchical-configuration).
 
+## Repository configuration schema
+
+<!-- md:version 0.9.134 -->
+
+A JSON Schema is available for nextest's repository configuration. The schema can be obtained through:
+
+- For the latest released version of nextest, a URL (forthcoming).
+- For the schema corresponding to a particular version of nextest, by running `cargo nextest self schema repo-config`.
+
+The schema can be used:
+
+- To validate a repository configuration file.
+- With the [Tombi](https://tombi-toml.github.io/tombi) language server for TOML, to provide autocomplete in supported IDEs and editors. (The taplo language server is not supported due to a [crash bug](https://github.com/tamasfe/taplo/pull/779).)
+
+Note that the schema is somewhat stricter than nextest's own config parser: unknown configuration items will fail schema validation, while nextest itself will only print out a warning.
+
+The URL for the schema will be submitted to the [JSON Schema Store](https://www.schemastore.org/) as well. Because nextest's configuration (outside of experimental configuration) is [append-only](../stability/index.md), the schema will automatically be updated as new nextest versions are released.
+
 ## Top-level configuration
 
 These parameters are specified at the root level of the configuration file.
