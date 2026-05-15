@@ -28,7 +28,7 @@ For more information about configuration hierarchy, see [_Hierarchical configura
 
 A JSON Schema is available for nextest's repository configuration. The schema can be obtained through:
 
-- For the latest released version of nextest, a URL (forthcoming).
+- For the latest released version of nextest, at [`https://nexte.st/schemas/repo-config.json`](https://nexte.st/schemas/repo-config.json). This URL is updated with new nextest releases.
 - For the schema corresponding to a particular version of nextest, by running `cargo nextest self schema repo-config`.
 
 The schema can be used:

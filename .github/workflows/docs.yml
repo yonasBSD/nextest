@@ -32,10 +32,11 @@ jobs:
       - uses: dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8 # stable
       # Deployment is gated on push to main, so PR cache poisoning is not a concern.
       - uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1 # zizmor: ignore[cache-poisoning]
-      - name: Install nextest for help text in docs
-        uses: taiki-e/install-action@184183c2401be73c3bf42c2e61268aa5855379c1 # v2.78.1
-        with:
-          tool: nextest
+      # Fetch nextest directly from get.nexte.st rather than via
+      # taiki-e/install-action: docs must reflect the latest release regardless
+      # of any delay in updating the install action.
+      - name: Install nextest
+        run: curl -LsSf https://get.nexte.st/latest/linux | tar zxf - -C ${CARGO_HOME:-~/.cargo}/bin
       - name: Install uv
         uses: eifinger/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
         with:
