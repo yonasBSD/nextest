@@ -21,6 +21,24 @@ User configuration is loaded from platform-specific locations:
 
 For more information about configuration hierarchy, see [_Configuration hierarchy_](index.md#configuration-hierarchy).
 
+## User configuration schema
+
+<!-- md:version 0.9.136 -->
+
+A JSON Schema is available for nextest's user configuration. The schema can be obtained through:
+
+- For the latest released version of nextest, at [`https://nexte.st/schemas/user-config.json`](https://nexte.st/schemas/user-config.json). This URL is updated with new nextest releases.
+- For the schema corresponding to a particular version of nextest, by running `cargo nextest self schema user-config`.
+
+The schema can be used:
+
+- To validate a user configuration file.
+- With the [Tombi](https://tombi-toml.github.io/tombi) language server for TOML, to provide autocomplete in supported IDEs and editors. (The taplo language server is not supported due to a [crash bug](https://github.com/tamasfe/taplo/pull/779).)
+
+Note that the schema is somewhat stricter than nextest's own config parser: unknown configuration items will fail schema validation, while nextest itself will only print out a warning.
+
+The URL for the schema will be submitted to the [JSON Schema Store](https://www.schemastore.org/) as well. Because nextest's user configuration (outside of experimental configuration) is [append-only](../stability/index.md), the schema will automatically be updated as new nextest versions are released.
+
 ## Experimental features
 
 <!-- md:version 0.9.123 -->

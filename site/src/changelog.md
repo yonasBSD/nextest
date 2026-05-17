@@ -10,6 +10,19 @@ toc_depth: 1
 This page documents new features and bugfixes for cargo-nextest. Please see the [stability
 policy](https://nexte.st/docs/stability/) for how versioning works with cargo-nextest.
 
+## [0.9.136] - 2026-05-16
+
+### Added
+
+- Following up from the recently-added schema for repository configuration, nextest now also provides a [JSON Schema](https://nexte.st/docs/user-config/reference#user-configuration-schema) for [user configuration](https://nexte.st/docs/user-config/). The schema for the running version can be obtained by running `cargo nextest self schema user-config`. ([#3351])
+
+### Changed
+
+- The `max-progress-running` user-config setting no longer accepts numeric strings like `"8"` (an undocumented fallback). The supported values remain a non-negative integer (e.g. `8`) or `"infinite"`. ([#3350])
+
+[#3350]: https://github.com/nextest-rs/nextest/pull/3350
+[#3351]: https://github.com/nextest-rs/nextest/pull/3351
+
 ## [0.9.135] - 2026-05-14
 
 Fixed an issue with a from-crates.io build.
@@ -2157,6 +2170,7 @@ Supported in this initial release:
 - [Test retries](https://nexte.st/book/retries.md) and flaky test detection
 - [JUnit support](https://nexte.st/book/junit.md) for integration with other test tooling
 
+[0.9.136]: https://github.com/nextest-rs/nextest/releases/tag/cargo-nextest-0.9.136
 [0.9.135]: https://github.com/nextest-rs/nextest/releases/tag/cargo-nextest-0.9.135
 [0.9.134]: https://github.com/nextest-rs/nextest/releases/tag/cargo-nextest-0.9.134
 [0.9.133]: https://github.com/nextest-rs/nextest/releases/tag/cargo-nextest-0.9.133
